@@ -1,0 +1,41 @@
+<mat-form-field class="full-width">
+  <mat-label>Ticker Symbol</mat-label>
+  <input
+    type="text"
+    matInput
+    [ngModel]="value$ | async"
+    (ngModelChange)="onInputChange($event)"
+    [matAutocomplete]="auto"
+    formControlName="tickerSymbol"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    @if ((loadingState | async)?.isLoading) {
+      <mat-option class="loading-spinner">
+        <mat-spinner diameter="40" class="center"></mat-spinner>
+      </mat-option>
+    } 
+
+    @if ((loadingState | async)?.error) {
+      <mat-option class="error">
+        Error. See console for details
+      </mat-option>
+    } 
+    
+    @for (option of (loadingState | async)?.data; track option) {
+      <mat-option class="list-item" [value]="option.symbol"
+        ><strong>{{ option.symbol }}</strong> - {{ option.name }}</mat-option
+      >
+    }
+  </mat-autocomplete>
+  @if ((value$ | async)) {
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    class="close"
+    (click)="value$.next(''); $event.preventDefault()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  }
+</mat-form-field>

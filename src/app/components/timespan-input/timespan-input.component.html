@@ -1,0 +1,16 @@
+<mat-form-field class="example-full-width">
+  <mat-label>Timespan</mat-label>
+  <input
+    type="text"
+    matInput
+    [(ngModel)]="inputValue"
+    [matAutocomplete]="auto"
+    formControlName="timespan"
+    required
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (option of filteredOptions | async; track option) {
+    <mat-option [value]="option">{{ option }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

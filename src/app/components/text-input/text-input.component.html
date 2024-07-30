@@ -1,0 +1,20 @@
+<mat-form-field class="full-width">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    type="{{ inputType() }}"
+    [(ngModel)]="value"
+    min="1"
+    formControlName="{{ controlName() }}"
+  />
+  @if (value && isCancellable) {
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="value = ''; $event.preventDefault()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  }
+</mat-form-field>

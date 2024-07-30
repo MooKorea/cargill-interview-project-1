@@ -1,0 +1,10 @@
+.full-width {
+    width: 100%;
+    position: relative;
+}
+
+button {
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%);
+}
