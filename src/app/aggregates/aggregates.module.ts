@@ -19,13 +19,10 @@ import { GetAggregatesService } from '../services/get-aggregates.service';
     FormsModule,
     ReactiveFormsModule,
     TimespanInputComponent,
-    RouterModule
+    RouterModule,
   ],
   exports: [AggregatesComponent],
   declarations: [AggregatesComponent],
-  providers: [
-    provideHttpClient(),
-    GetAggregatesService
-  ],
+  providers: [provideHttpClient(), GetAggregatesService],
 })
 export class AggregatesModule {}

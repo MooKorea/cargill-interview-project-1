@@ -1,6 +1,17 @@
+aside {
+    height: 100%;
+    width: 16rem;
+    border-right: 1px solid rgb(176, 176, 196);
+}
+
 form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 15rem;
+    padding-inline: 1.8rem;
+    padding-top: 1.8rem;
+}
+
+.submit-button {
+    margin-top: 1rem;
 }

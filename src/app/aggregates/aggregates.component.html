@@ -1,17 +1,22 @@
-<form [formGroup]="formData" (ngSubmit)="onSubmit()">
-  <app-ticker-symbol-input></app-ticker-symbol-input>
-  <app-text-input
-    [inputType]="'number'"
-    [label]="'Timespan Multiplier'"
-    [controlName]="'timespanMultiplier'"
-    value="1"
-    [isCancellable]="false"
-  ></app-text-input>
-  <app-timespan-input></app-timespan-input>
-  <app-date-picker
-    label="Start Date"
-    [controlName]="'startDate'"
-  ></app-date-picker>
-  <app-date-picker label="End Date" [controlName]="'endDate'"></app-date-picker>
-  <button mat-flat-button type="submit">Submit</button>
-</form>
+<aside>
+  <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+    <app-ticker-symbol-input></app-ticker-symbol-input>
+    <app-text-input
+      [inputType]="'number'"
+      [label]="'Timespan Multiplier'"
+      [controlName]="'timespanMultiplier'"
+      value="1"
+      [isCancellable]="false"
+    ></app-text-input>
+    <app-timespan-input></app-timespan-input>
+    <app-date-picker
+      label="Start Date"
+      [controlName]="'startDate'"
+    ></app-date-picker>
+    <app-date-picker
+      label="End Date"
+      [controlName]="'endDate'"
+    ></app-date-picker>
+    <button mat-flat-button class="submit-button" type="submit">Submit</button>
+  </form>
+</aside>
