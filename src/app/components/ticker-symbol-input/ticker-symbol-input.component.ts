@@ -73,13 +73,13 @@ export class TickerSymbolInputComponent {
     this.value$.next(value.toUpperCase())
 
     // TEMPORARY
-    // this.loadingState = this.value$.pipe(
-    //   debounceTime(300),
-    //   switchMap((value) => {
-    //     if (!value) return [null];
-    //     return this.tickerSymbolService.getTickerSymbols(value);
-    //   })
-    // );
+    this.loadingState = this.value$.pipe(
+      debounceTime(300),
+      switchMap((value) => {
+        if (!value) return [null];
+        return this.tickerSymbolService.getTickerSymbols(value);
+      })
+    );
   }
 
   //Extending ngModel directive to use observables

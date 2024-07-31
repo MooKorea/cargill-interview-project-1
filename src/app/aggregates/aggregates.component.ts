@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GetAggregatesService } from '../services/get-aggregates.service';
 import { DatePipe } from '@angular/common';
 import { AggregatesForm } from '../models/aggregatesForm';
+import { first, last, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-aggregates',
@@ -58,6 +59,26 @@ export class AggregatesComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     });
+
+    this.route.queryParams.pipe(take(2), last()).subscribe((params) => {
+      if (params['isSubmitted'] && this.formData.valid) {
+        this.getAggregatesService.getAggregates(
+          this.formData.value as AggregatesForm
+        );
+      } else {
+        this.setSubmittedState(false);
+      }
+    });
+  }
+
+  setSubmittedState(isSubmitted: boolean) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        isSubmitted: isSubmitted,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   onSubmit() {
@@ -65,6 +86,8 @@ export class AggregatesComponent implements OnInit {
       this.getAggregatesService.getAggregates(
         this.formData.value as AggregatesForm
       );
+
+      this.setSubmittedState(true);
     } else {
       console.error('Data is invalid');
     }

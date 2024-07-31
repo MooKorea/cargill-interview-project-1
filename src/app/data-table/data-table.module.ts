@@ -4,9 +4,15 @@ import { DataTableComponent } from './data-table.component';
 import { GetAggregatesService } from '../services/get-aggregates.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 @NgModule({
-  imports: [CommonModule, MatProgressSpinnerModule, MatTableModule],
+  imports: [
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    CdkDrag,
+    CdkDropList,
+  ],
   exports: [DataTableComponent],
   declarations: [DataTableComponent],
   providers: [GetAggregatesService],

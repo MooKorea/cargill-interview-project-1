@@ -15,12 +15,12 @@ export class TickerSymbolsService {
   ): Observable<HttpRequestState<TickerSymbol[]>> {
     const url = `https://cargill-interview-project-backend.vercel.app/api/ticker-symbol?query=${query.toUpperCase()}`;
     return this.http
-      .get<{ data: TickerSymbol[] }>(url, {
+      .get<{ res: TickerSymbol[] }>(url, {
         headers: { Accept: 'application/json' },
       })
       .pipe(
         map((data) => {
-          return { data: data.data as TickerSymbol[], isLoading: false };
+          return { data: data.res as TickerSymbol[], isLoading: false };
         }),
         catchError((error) => {
           console.error(error)

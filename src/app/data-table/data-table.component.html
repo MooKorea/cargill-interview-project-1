@@ -1,71 +1,75 @@
 @if (!table) {
-  <p>
-    No data generated
-  </p>
-}
+<p>No data generated</p>
+} @if (table?.isLoading) {
+<mat-spinner></mat-spinner>
+} @if (table?.data) {
+<div
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  @for (timePeriod of displayedColumns; track timePeriod) {
+  <div class="example-box" cdkDrag>{{ timePeriod }}</div>
+  }
+</div>
+<table mat-table [dataSource]="table?.data?.results!" class="mat-elevation-z8">
+  <!-- Timestamp Column -->
+  <ng-container matColumnDef="Timestamp">
+    <th mat-header-cell *matHeaderCellDef>Timestamp</th>
+    <td mat-cell *matCellDef="let element">
+      {{ parseTime(element.t).split(",")[0] }}
+      <br />
+      {{ parseTime(element.t).split(",")[1] }}
+    </td>
+  </ng-container>
 
-@if (table?.isLoading) {
-  <mat-spinner></mat-spinner>
-}
+  <!-- Trading Volume Column -->
+  <ng-container matColumnDef="Trading Volume">
+    <th mat-header-cell *matHeaderCellDef>Trading Volume</th>
+    <td mat-cell *matCellDef="let element">{{ element.v }}</td>
+  </ng-container>
 
-@if (table?.data) {
-  <!-- @for (option of table?.data?.results; track option) {
-    <div>{{option.v}}</div>
-  } -->
-  <table mat-table [dataSource]="table?.data?.results!" class="mat-elevation-z8">
+  <!-- Volume Weighted Column -->
+  <ng-container matColumnDef="Volume Weighted Avg. Price">
+    <th mat-header-cell *matHeaderCellDef>
+      Volume Weighted
+      Avg. Price
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.vw }}</td>
+  </ng-container>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="v">
-      <th mat-header-cell *matHeaderCellDef> Trading Volume </th>
-      <td mat-cell *matCellDef="let element"> {{element.v}} </td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="vw">
-      <th mat-header-cell *matHeaderCellDef> Volume Weighted Average Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.vw}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="o">
-      <th mat-header-cell *matHeaderCellDef> Open Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.o}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="c">
-      <th mat-header-cell *matHeaderCellDef> Close Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.c}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="h">
-      <th mat-header-cell *matHeaderCellDef> Highest Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.h}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="l">
-      <th mat-header-cell *matHeaderCellDef> Lowest Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.l}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="t">
-      <th mat-header-cell *matHeaderCellDef> Timestamp </th>
-      <td mat-cell *matCellDef="let element"> {{element.t}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="n">
-      <th mat-header-cell *matHeaderCellDef> No. of Transactions </th>
-      <td mat-cell *matCellDef="let element"> {{element.n}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <!-- Open Price Column -->
+  <ng-container matColumnDef="Open Price">
+    <th mat-header-cell *matHeaderCellDef>Open Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.o }}</td>
+  </ng-container>
+
+  <!-- Close Price Column -->
+  <ng-container matColumnDef="Close Price">
+    <th mat-header-cell *matHeaderCellDef>Close Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.c }}</td>
+  </ng-container>
+
+  <!-- Highest Price Column -->
+  <ng-container matColumnDef="Highest Price">
+    <th mat-header-cell *matHeaderCellDef>Highest Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.h }}</td>
+  </ng-container>
+
+  <!-- Lowest Price Column -->
+  <ng-container matColumnDef="Lowest Price">
+    <th mat-header-cell *matHeaderCellDef>Lowest Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.l }}</td>
+  </ng-container>
+
+  <!-- No. of Transactions Column -->
+  <ng-container matColumnDef="No. of Transactions">
+    <th mat-header-cell *matHeaderCellDef>No. of Transactions</th>
+    <td mat-cell *matCellDef="let element">{{ element.n }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
 }
