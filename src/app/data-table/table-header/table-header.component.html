@@ -1,0 +1,17 @@
+<div class="container">
+  <div
+    style="{{ label().length > 14 ? 'font-size:0.7rem' : 'font-size:0.8rem' }}"
+  >
+    {{ label() }}
+  </div>
+  <div>
+    <button matSuffix mat-icon-button aria-label="Sort" (click)="sortColumn()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        [fontIcon]="['swap_vert', 'arrow_downward', 'arrow_upward'][sortIndex]"
+        [class]="sortIndex === 0 ? 'inactive' : 'active'"
+      ></mat-icon>
+    </button>
+  </div>
+</div>

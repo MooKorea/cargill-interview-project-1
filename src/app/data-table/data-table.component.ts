@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetAggregatesService } from '../services/get-aggregates.service';
-import { AggregatesData } from '../models/aggregatesData';
+import { AggregatesData, AggregatesDataPoint } from '../models/aggregatesData';
 import { HttpRequestState } from '../models/httpRequestState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
@@ -10,20 +10,28 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class DataTableComponent implements OnInit {
   table: HttpRequestState<AggregatesData> | null = null;
-  displayedColumns: string[] = [
-    'Timestamp',
-    'Trading Volume',
-    'Volume Weighted Avg. Price',
-    'Open Price',
-    'Close Price',
-    'Highest Price',
-    'Lowest Price',
-    'No. of Transactions',
+  headerData: {label: string; dataType: keyof AggregatesDataPoint}[] = [
+    { label: 'Timestamp', dataType: "t"},
+    { label: 'Trading Volume',dataType: "v"},
+    { label: 'Volume Weighted Avg. Price',dataType: "vw"},
+    { label: 'Open Price',dataType: "o"},
+    { label: 'Close Price',dataType: "c"},
+    { label: 'Highest Price',dataType: "h"},
+    { label: 'Lowest Price',dataType: "l"},
+    { label: 'No. of Transactions',dataType: "n"}
   ];
 
-  drop(event: CdkDragDrop<string[]>) {
+  displayedColumns = this.headerData.map(e => e.label)
+
+  drop(event: CdkDragDrop<string>) {
     moveItemInArray(
       this.displayedColumns,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    moveItemInArray(
+      this.headerData,
       event.previousIndex,
       event.currentIndex
     );

@@ -9,9 +9,10 @@
   class="example-list"
   (cdkDropListDropped)="drop($event)"
 >
-  @for (timePeriod of displayedColumns; track timePeriod) {
-  <div class="example-box" cdkDrag>{{ timePeriod }}</div>
+  @for (data of headerData; track data) {
+  <div class="example-box" cdkDrag><app-table-header [label]="data.label" [dataType]="data.dataType"></app-table-header></div>
   }
+
 </div>
 <table mat-table [dataSource]="table?.data?.results!" class="mat-elevation-z8">
   <!-- Timestamp Column -->
@@ -32,10 +33,7 @@
 
   <!-- Volume Weighted Column -->
   <ng-container matColumnDef="Volume Weighted Avg. Price">
-    <th mat-header-cell *matHeaderCellDef>
-      Volume Weighted
-      Avg. Price
-    </th>
+    <th mat-header-cell *matHeaderCellDef>Volume Weighted Avg. Price</th>
     <td mat-cell *matCellDef="let element">{{ element.vw }}</td>
   </ng-container>
 

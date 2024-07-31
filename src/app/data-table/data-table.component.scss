@@ -25,6 +25,7 @@ table {
 
 .mat-mdc-cell {
   border-bottom-color: rgb(214, 214, 214);
+  border-right: solid 1px #ebebeb;
   width: 100px;
 }
 
@@ -36,11 +37,11 @@ table {
   background: white;
   overflow: hidden;
   border-bottom: solid 1px #ccc;
-
 }
 
 .example-box {
   padding-inline: 1rem;
+  border-right: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -53,10 +54,12 @@ table {
   flex-grow: 1;
   flex-basis: 0;
   font-weight: 700;
+  line-height: 1rem;
 }
 
 .cdk-drag-preview {
   box-sizing: border-box;
+  overflow:hidden;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
               0 8px 10px 1px rgba(0, 0, 0, 0.14),

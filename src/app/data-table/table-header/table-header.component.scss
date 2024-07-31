@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.inactive {
+    color: #bebebe;
+}
+
+.active {
+    color: #003fee;
+}
+
+.mat-mdc-icon-button {
+    margin-right: -1rem;
+}
