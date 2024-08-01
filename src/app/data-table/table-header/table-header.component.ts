@@ -1,8 +1,9 @@
 import { Component, input, OnDestroy, OnInit } from '@angular/core';
 import { AggregateSortService } from '../../services/aggregate-sort.service';
 import { AggregatesDataPoint } from '../../models/aggregatesData';
-import { filter, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AggregateSort } from '../../models/aggregateSort';
+import { GetAggregatesService } from '../../services/get-aggregates.service';
 
 @Component({
   selector: 'app-table-header',
@@ -16,7 +17,10 @@ export class TableHeaderComponent implements OnInit, OnDestroy {
   sortIndex: number = 0;
 
   sortSubscription!: Subscription;
-  constructor(private aggregateSortService: AggregateSortService) {
+  constructor(
+    private aggregateSortService: AggregateSortService,
+    private getAggregatesService: GetAggregatesService
+  ) {
     this.sortType = aggregateSortService.currentSort$;
   }
 
@@ -29,12 +33,17 @@ export class TableHeaderComponent implements OnInit, OnDestroy {
   }
 
   sortColumn() {
-    this.aggregateSortService.updateSort({
-      direction: 'none',
-      dataType: this.dataType(),
-    });
     this.sortIndex++;
     this.sortIndex = this.sortIndex % 3;
+
+    const orderTypes = ['none', 'descending', 'ascending'] as const;
+    const sortParams: AggregateSort = {
+      direction: orderTypes[this.sortIndex],
+      dataType: this.dataType(),
+    };
+
+    this.aggregateSortService.updateSort(sortParams);
+    this.getAggregatesService.sortData(sortParams)
   }
 
   ngOnDestroy() {

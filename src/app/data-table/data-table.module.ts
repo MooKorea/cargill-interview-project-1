@@ -9,6 +9,7 @@ import { TableHeaderComponent } from './table-header/table-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AggregateSortService } from '../services/aggregate-sort.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -19,9 +20,13 @@ import { AggregateSortService } from '../services/aggregate-sort.service';
     CdkDropList,
     MatIconModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
-  exports: [DataTableComponent, TableHeaderComponent],
-  declarations: [DataTableComponent, TableHeaderComponent],
+  exports: [DataTableComponent],
+  declarations: [
+    DataTableComponent,
+    TableHeaderComponent,
+  ],
   providers: [GetAggregatesService, AggregateSortService],
 })
 export class DataTableModule {}

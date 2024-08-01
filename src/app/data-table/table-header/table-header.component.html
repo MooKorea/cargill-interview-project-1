@@ -5,7 +5,13 @@
     {{ label() }}
   </div>
   <div>
-    <button matSuffix mat-icon-button aria-label="Sort" (click)="sortColumn()">
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Sort"
+      [matTooltip]="['no sorting', 'descending', 'ascending'][sortIndex]"
+      (click)="sortColumn()"
+    >
       <mat-icon
         aria-hidden="false"
         aria-label="Example home icon"
