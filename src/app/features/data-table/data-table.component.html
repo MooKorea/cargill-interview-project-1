@@ -23,9 +23,7 @@
   <ng-container matColumnDef="Timestamp">
     <th mat-header-cell *matHeaderCellDef>Timestamp</th>
     <td mat-cell *matCellDef="let element">
-      {{ parseTime(element.t).split(",")[0] }}
-      <br />
-      {{ parseTime(element.t).split(",")[1] }}
+      {{ parseTime(element.t)}}
     </td>
   </ng-container>
 

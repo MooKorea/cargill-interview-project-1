@@ -3,7 +3,7 @@
   <input
     type="text"
     matInput
-    [ngModel]="value$ | async"
+    [ngModel]="value | async"
     (ngModelChange)="onInputChange($event)"
     [matAutocomplete]="auto"
     formControlName="tickerSymbol"
@@ -27,13 +27,13 @@
       >
     }
   </mat-autocomplete>
-  @if ((value$ | async)) {
+  @if ((value | async)) {
   <button
     matSuffix
     mat-icon-button
     aria-label="Clear"
     class="close"
-    (click)="value$.next(''); $event.preventDefault()"
+    (click)="value.next(''); $event.preventDefault()"
   >
     <mat-icon>close</mat-icon>
   </button>

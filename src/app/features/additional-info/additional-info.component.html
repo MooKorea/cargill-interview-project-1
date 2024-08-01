@@ -1,0 +1,18 @@
+<div class="container">
+  <div *ngIf="(label$ | async)?.data as label">
+    <div class="ticker-name">
+      <h1>{{ label[0].symbol }}</h1>
+      <h2>{{ label[0].name }}</h2>
+    </div>
+    <div class="data-container">
+      <div class="data">
+        <div>High</div>
+        <strong>{{(high$ | async)}}</strong>
+      </div>
+      <div class="data">
+        <div>Low</div>
+        <strong>{{(low$ | async)}}</strong>
+      </div>
+    </div>
+  </div>
+</div>

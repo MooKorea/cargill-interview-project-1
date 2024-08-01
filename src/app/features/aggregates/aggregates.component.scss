@@ -5,11 +5,13 @@ aside {
 }
 
 form {
+    width: 12.2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding-inline: 1.8rem;
     padding-top: 1.8rem;
+    position: fixed;
 }
 
 .submit-button {

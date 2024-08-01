@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { AggregatesComponent } from './aggregates.component';
-import { TickerSymbolInputComponent } from '../components/ticker-symbol-input/ticker-symbol-input.component';
-import { TextInputComponent } from '../components/text-input/text-input.component';
-import { DatePickerComponent } from '../components/date-picker/date-picker.component';
+import { TickerSymbolInputComponent } from '../../components/ticker-symbol-input/ticker-symbol-input.component';
+import { TextInputComponent } from '../../components/text-input/text-input.component';
+import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
 import { MatButtonModule } from '@angular/material/button';
-import { TimespanInputComponent } from '../components/timespan-input/timespan-input.component';
+import { TimespanInputComponent } from '../../components/timespan-input/timespan-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { GetAggregatesService } from '../services/get-aggregates.service';
+import { GetAggregatesService } from '../../services/get-aggregates.service';
+import { TickerSymbolsService } from '../../services/ticker-symbols.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { GetAggregatesService } from '../services/get-aggregates.service';
   ],
   exports: [AggregatesComponent],
   declarations: [AggregatesComponent],
-  providers: [provideHttpClient(), GetAggregatesService],
+  providers: [provideHttpClient(), GetAggregatesService, TickerSymbolsService],
 })
 export class AggregatesModule {}

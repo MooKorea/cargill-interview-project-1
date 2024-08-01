@@ -18,17 +18,18 @@ import { AggregateChartData } from '../models/aggregateChartData';
   providedIn: 'root',
 })
 export class GetAggregatesService {
-  constructor(private http: HttpClient) {}
   private aggregatesSubject =
-    new BehaviorSubject<HttpRequestState<AggregatesData> | null>(null);
+  new BehaviorSubject<HttpRequestState<AggregatesData> | null>(null);
   public aggregatesData$: Observable<HttpRequestState<AggregatesData> | null> =
-    this.aggregatesSubject.asObservable();
-
+  this.aggregatesSubject.asObservable();
+  
   private aggregatesChartSubject =
-    new BehaviorSubject<AggregateChartData[] | null>(null);
+  new BehaviorSubject<AggregateChartData[] | null>(null);
   public aggregatesChartData$: Observable<AggregateChartData[] | null> =
-    this.aggregatesChartSubject.asObservable();
-
+  this.aggregatesChartSubject.asObservable();
+  
+  constructor(private http: HttpClient) {}
+  
   getAggregates(formData: AggregatesForm) {
     const params = new URLSearchParams({
       stocksTicker: formData.tickerSymbol,

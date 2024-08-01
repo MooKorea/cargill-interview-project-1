@@ -1,9 +1,9 @@
 import { Component, input, OnDestroy, OnInit } from '@angular/core';
-import { AggregateSortService } from '../../services/aggregate-sort.service';
-import { AggregatesDataPoint } from '../../models/aggregatesData';
+import { AggregateSortService } from '../../../services/aggregate-sort.service';
+import { AggregatesDataPoint } from '../../../models/aggregatesData';
 import { Observable, Subscription } from 'rxjs';
-import { AggregateSort } from '../../models/aggregateSort';
-import { GetAggregatesService } from '../../services/get-aggregates.service';
+import { AggregateSort } from '../../../models/aggregateSort';
+import { GetAggregatesService } from '../../../services/get-aggregates.service';
 
 @Component({
   selector: 'app-table-header',

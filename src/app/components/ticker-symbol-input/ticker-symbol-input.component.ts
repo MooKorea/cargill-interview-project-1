@@ -43,37 +43,17 @@ import { HttpRequestState } from '../../models/httpRequestState';
   styleUrl: './ticker-symbol-input.component.scss',
 })
 export class TickerSymbolInputComponent {
-  // myControl = new FormControl<string>('');
   options: string[] = [];
   loadingState!: Observable<HttpRequestState<TickerSymbol[]> | null>;
 
   constructor(private tickerSymbolService: TickerSymbolsService) {}
 
-  value$ = new BehaviorSubject('')
-
-  // ngOnInit() {
-  //   this.myControl.valueChanges.pipe().subscribe((value) => {
-  //     if (!value) return;
-  //     const uppercaseValue = value.toUpperCase();
-  //     if (value !== uppercaseValue) {
-  //       this.myControl.setValue(uppercaseValue, { emitEvent: false });
-  //     }
-  //   });
-
-  //   this.loadingState = this.myControl.valueChanges.pipe(
-  //     debounceTime(300),
-  //     switchMap((value) => {
-  //       if (!value) return [null];
-  //       return this.tickerSymbolService.getTickerSymbols(value);
-  //     })
-  //   );
-  // }
+  value = new BehaviorSubject('')
 
   onInputChange(value:string) {
-    this.value$.next(value.toUpperCase())
+    this.value.next(value.toUpperCase())
 
-    // TEMPORARY
-    this.loadingState = this.value$.pipe(
+    this.loadingState = this.value.pipe(
       debounceTime(300),
       switchMap((value) => {
         if (!value) return [null];

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GetAggregatesService } from '../services/get-aggregates.service';
-import { AggregatesData, AggregatesDataPoint } from '../models/aggregatesData';
-import { HttpRequestState } from '../models/httpRequestState';
+import { GetAggregatesService } from '../../services/get-aggregates.service';
+import { AggregatesData, AggregatesDataPoint } from '../../models/aggregatesData';
+import { HttpRequestState } from '../../models/httpRequestState';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AggregateSortService } from '../services/aggregate-sort.service';
-import { AggregateSort } from '../models/aggregateSort';
+import { AggregateSortService } from '../../services/aggregate-sort.service';
+import { AggregateSort } from '../../models/aggregateSort';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-data-table',
@@ -16,12 +16,12 @@ export class DataTableComponent implements OnInit {
 
   headerData: { label: string; dataType: keyof AggregatesDataPoint }[] = [
     { label: 'Timestamp', dataType: 't' },
-    { label: 'Trading Volume', dataType: 'v' },
-    { label: 'Volume Weighted Avg. Price', dataType: 'vw' },
     { label: 'Open Price', dataType: 'o' },
-    { label: 'Close Price', dataType: 'c' },
     { label: 'Highest Price', dataType: 'h' },
     { label: 'Lowest Price', dataType: 'l' },
+    { label: 'Close Price', dataType: 'c' },
+    { label: 'Trading Volume', dataType: 'v' },
+    { label: 'Volume Weighted Avg. Price', dataType: 'vw' },
     { label: 'No. of Transactions', dataType: 'n' },
   ];
 

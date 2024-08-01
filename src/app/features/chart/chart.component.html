@@ -1,0 +1,23 @@
+<div class="chart-box">
+  <div *ngIf="chartCandleOptions$ | async as candleOptions">
+    <div id="chart-candlestick">
+      <apx-chart
+        [series]="candleOptions.series"
+        [chart]="candleOptions.chart"
+        [xaxis]="candleOptions.xaxis"
+        [plotOptions]="candleOptions.plotOptions"
+      ></apx-chart>
+    </div>
+  </div>
+
+  <div *ngIf="chartBrushOptions$ | async as brushOptions">
+    <div id="chart-brush">
+      <apx-chart
+        [series]="brushOptions.series"
+        [chart]="brushOptions.chart"
+        [xaxis]="brushOptions.xaxis"
+        [yaxis]="brushOptions.yaxis"
+      ></apx-chart>
+    </div>
+  </div>
+</div>
