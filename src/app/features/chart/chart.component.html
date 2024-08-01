@@ -1,5 +1,5 @@
-<div class="chart-box">
-  <div *ngIf="chartCandleOptions$ | async as candleOptions">
+<div class="chart-box" *ngIf="chartCandleOptions$ | async as candleOptions">
+  <div>
     <div id="chart-candlestick">
       <apx-chart
         [series]="candleOptions.series"

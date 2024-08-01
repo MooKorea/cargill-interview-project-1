@@ -1,8 +1,11 @@
-@if (!(table$ | async)) {
-<p>No data generated</p>
-} @if ((table$ | async)?.isLoading) {
-<mat-spinner></mat-spinner>
-} @if ((table$ | async)?.data) {
+<div class="no-data" *ngIf="!(table$ | async)?.data">
+  @if (!(table$ | async)) {
+  <p>No data generated</p>
+  } @if ((table$ | async)?.isLoading) {
+  <mat-spinner></mat-spinner>
+  }
+</div>
+@if ((table$ | async)?.data) {
 <div
   cdkDropList
   cdkDropListOrientation="horizontal"
