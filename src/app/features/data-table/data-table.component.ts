@@ -6,13 +6,15 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AggregateSortService } from '../../services/aggregate-sort.service';
 import { AggregateSort } from '../../models/aggregateSort';
 import { Observable } from 'rxjs';
+import { SelectAggregatePointService } from '../../services/select-aggregate-point.service';
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit {
-  table: Observable<HttpRequestState<AggregatesData> | null>
+  table$: Observable<HttpRequestState<AggregatesData> | null>
+  rowSelect$: Observable<number>
 
   headerData: { label: string; dataType: keyof AggregatesDataPoint }[] = [
     { label: 'Timestamp', dataType: 't' },
@@ -26,14 +28,17 @@ export class DataTableComponent implements OnInit {
   ];
 
   displayedColumns = this.headerData.map((e) => e.label);
-  sortType: Observable<AggregateSort>;
+  sortType$: Observable<AggregateSort>;
   
   constructor(
     private getAggregatesService: GetAggregatesService,
-    private aggregateSortService: AggregateSortService
+    private aggregateSortService: AggregateSortService,
+    private selectAggregatePointService: SelectAggregatePointService
+
   ) {
-    this.table = this.getAggregatesService.aggregatesData$
-    this.sortType = this.aggregateSortService.currentSort$;
+    this.table$ = this.getAggregatesService.aggregatesData$
+    this.sortType$ = this.aggregateSortService.currentSort$;
+    this.rowSelect$ = this.selectAggregatePointService.currentSelect
   }
   
   drop(event: CdkDragDrop<string>) {

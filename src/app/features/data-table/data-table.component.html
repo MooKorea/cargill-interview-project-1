@@ -1,8 +1,8 @@
-@if (!(table | async)) {
+@if (!(table$ | async)) {
 <p>No data generated</p>
-} @if ((table | async)?.isLoading) {
+} @if ((table$ | async)?.isLoading) {
 <mat-spinner></mat-spinner>
-} @if ((table | async)?.data) {
+} @if ((table$ | async)?.data) {
 <div
   cdkDropList
   cdkDropListOrientation="horizontal"
@@ -18,47 +18,99 @@
   </div>
   }
 </div>
-<table mat-table [dataSource]="(table | async)?.data?.results!" class="mat-elevation-z8">
+<table
+  mat-table
+  [dataSource]="(table$ | async)?.data?.results!"
+  class="mat-elevation-z8"
+>
+  <ng-container *ngIf="rowSelect$ | async as select">
+    <ng-container matColumnDef="Timestamp">
+      <th mat-header-cell *matHeaderCellDef>Timestamp</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+        [id]="element.t"
+      >
+        {{ parseTime(element.t) }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Timestamp">
-    <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-    <td mat-cell *matCellDef="let element">
-      {{ parseTime(element.t)}}
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="Trading Volume">
+      <th mat-header-cell *matHeaderCellDef>Trading Volume</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.v }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Trading Volume">
-    <th mat-header-cell *matHeaderCellDef>Trading Volume</th>
-    <td mat-cell *matCellDef="let element">{{ element.v }}</td>
-  </ng-container>
+    <ng-container matColumnDef="Volume Weighted Avg. Price">
+      <th mat-header-cell *matHeaderCellDef>Volume Weighted Avg. Price</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.vw }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Volume Weighted Avg. Price">
-    <th mat-header-cell *matHeaderCellDef>Volume Weighted Avg. Price</th>
-    <td mat-cell *matCellDef="let element">{{ element.vw }}</td>
-  </ng-container>
+    <ng-container matColumnDef="Open Price">
+      <th mat-header-cell *matHeaderCellDef>Open Price</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.o }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Close Price">
+      <th mat-header-cell *matHeaderCellDef>Close Price</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.c }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Open Price">
-    <th mat-header-cell *matHeaderCellDef>Open Price</th>
-    <td mat-cell *matCellDef="let element">{{ element.o }}</td>
-  </ng-container>
-  <ng-container matColumnDef="Close Price">
-    <th mat-header-cell *matHeaderCellDef>Close Price</th>
-    <td mat-cell *matCellDef="let element">{{ element.c }}</td>
-  </ng-container>
+    <ng-container matColumnDef="Highest Price">
+      <th mat-header-cell *matHeaderCellDef>Highest Price</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.h }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Highest Price">
-    <th mat-header-cell *matHeaderCellDef>Highest Price</th>
-    <td mat-cell *matCellDef="let element">{{ element.h }}</td>
-  </ng-container>
+    <ng-container matColumnDef="Lowest Price">
+      <th mat-header-cell *matHeaderCellDef>Lowest Price</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.l }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="Lowest Price">
-    <th mat-header-cell *matHeaderCellDef>Lowest Price</th>
-    <td mat-cell *matCellDef="let element">{{ element.l }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="No. of Transactions">
-    <th mat-header-cell *matHeaderCellDef>No. of Transactions</th>
-    <td mat-cell *matCellDef="let element">{{ element.n }}</td>
+    <ng-container matColumnDef="No. of Transactions">
+      <th mat-header-cell *matHeaderCellDef>No. of Transactions</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class]="select === element.t ? 'select' : ''"
+      >
+        {{ element.n }}
+      </td>
+    </ng-container>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

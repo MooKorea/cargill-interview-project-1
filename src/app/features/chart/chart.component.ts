@@ -10,7 +10,9 @@ import {
   ApexStroke,
 } from 'ng-apexcharts';
 import { GetAggregatesService } from '../../services/get-aggregates.service';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, Subscription } from 'rxjs';
+import { AggregateChartData } from '../../models/aggregateChartData';
+import { SelectAggregatePointService } from '../../services/select-aggregate-point.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -39,8 +41,15 @@ export class ChartComponent {
   chart!: Chart;
   chartCandleOptions$: Observable<ChartCandleOptions>;
   chartBrushOptions$: Observable<ChartOptions>;
+  currentSelect: number = -1;
 
-  constructor(private getAggregatesService: GetAggregatesService) {
+  chartData!: AggregateChartData[] | null;
+  private chartSubscription!: Subscription;
+
+  constructor(
+    private getAggregatesService: GetAggregatesService,
+    private selectAggregatePointService: SelectAggregatePointService,
+  ) {
     this.chartCandleOptions$ =
       this.getAggregatesService.aggregatesChartData$.pipe(
         filter((x) => !!x),
@@ -55,7 +64,7 @@ export class ChartComponent {
             chart: {
               type: 'candlestick',
               height: 290,
-              width: "99%",
+              width: '99%',
               id: 'candles',
               toolbar: {
                 autoSelected: 'pan',
@@ -63,6 +72,13 @@ export class ChartComponent {
               },
               zoom: {
                 enabled: false,
+              },
+              events: {
+                //https://apexcharts.com/docs/options/chart/events/#dataPointSelection
+                //no types unfortunately
+                click: (event, chartContext, opts) => {
+                  this.onDataPointSelection(event, chartContext, opts);
+                },
               },
             },
             plotOptions: {
@@ -96,7 +112,7 @@ export class ChartComponent {
             ],
             chart: {
               height: 120,
-              width: "99%",
+              width: '99%',
               type: 'bar',
               brush: {
                 enabled: true,
@@ -157,4 +173,33 @@ export class ChartComponent {
         })
       );
   }
+
+  ngOnInit(): void {
+    this.chartSubscription =
+      this.getAggregatesService.aggregatesChartData$.subscribe((value) => {
+        this.chartData = value;
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.chartSubscription) {
+      this.chartSubscription.unsubscribe();
+    }
+  }
+
+  onDataPointSelection(event: any, chartContext: any, opts: any) {
+    if (opts.dataPointIndex === -1 || this.chartData === null) return;
+    const select = this.chartData[opts.dataPointIndex].x.getTime()
+
+    //scroll to selected data in table if point is clicked on twice
+    const element = document.getElementById(select.toString())
+    if (select === this.currentSelect && element) {
+      const y = element.getBoundingClientRect().top + window.scrollY - 200;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+
+    this.currentSelect = select;
+    this.selectAggregatePointService.updateSelect(this.currentSelect);
+  }
+
 }
