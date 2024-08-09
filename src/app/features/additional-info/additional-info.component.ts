@@ -29,14 +29,16 @@ export class AdditionalInfoComponent implements OnInit {
     this.high$ = this.getAggregatesService.aggregatesChartData$.pipe(
       filter((x) => !!x),
       map((value) => {
-        return value[value.length - 1].y[1];
+        const highs = value.map(e => e.y[1])
+        return Math.max(...highs);
       })
     );
 
     this.low$ = this.getAggregatesService.aggregatesChartData$.pipe(
       filter((x) => !!x),
       map((value) => {
-        return value[value.length - 1].y[2];
+        const lows = value.map(e => e.y[2])
+        return Math.min(...lows)
       })
     );
   }
